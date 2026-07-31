@@ -1,0 +1,3 @@
+- `[x]` Create `src/components/layout/ExitModal.tsx` for attractive exit confirmation
+- `[x]` Update `src/App.tsx` to use the new `ExitModal`
+- `[x]` Verify the changes and provide walkthrough
