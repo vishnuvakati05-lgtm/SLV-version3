@@ -50,7 +50,7 @@ export const Footer: React.FC = () => {
           <div className="sm:col-span-2 lg:col-span-1 space-y-5">
             <Link to="/" className="inline-flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0077B6] to-[#00B4D8] flex items-center justify-center shadow-lg flex-shrink-0">
-                <span className="text-white font-black text-base">SL</span>
+                <span className="text-white font-black text-sm">SLV</span>
               </div>
               <div>
                 <div className="text-white font-black text-lg leading-tight">SLV Marine</div>
@@ -170,8 +170,8 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} SLV Marine Exports Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-5 text-xs text-slate-600">
-            <a href="#" className="hover:text-slate-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-slate-400 transition-colors">Terms of Service</a>
+            <Link to="/privacy-policy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
+            <Link to="/privacy-policy" className="hover:text-slate-400 transition-colors">Terms of Service</Link>
             <Link to="/certifications" className="hover:text-slate-400 transition-colors">Certifications</Link>
           </div>
         </div>

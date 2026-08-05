@@ -74,9 +74,9 @@ export const StatsSection = () => {
       
       <div className="max-w-screen-xl mx-auto px-5 sm:px-8 relative z-10">
         <div className="text-center mb-16 sm:mb-20">
-          <p className="text-sm font-bold tracking-[0.2em] text-[#0F766E] uppercase mb-3">Our Legacy</p>
+          <p className="text-sm font-bold tracking-[0.2em] text-[#0077B6] dark:text-[#48CAE4] uppercase mb-3">Our Legacy</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Delivering Excellence <br className="sm:hidden" /> Globally
+            Delivering Excellence <br className="sm:hidden" /> Across India & Nepal
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">

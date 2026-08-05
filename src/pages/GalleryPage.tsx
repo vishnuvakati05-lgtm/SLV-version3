@@ -2,15 +2,14 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaPlay } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-// Dynamically import all images and videos from src/assets
-const imageAssets = import.meta.glob('../assets/gallery/*', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+// Dynamically import facility videos
 const videoAssets = import.meta.glob('../assets/videos/*', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 const getImageUrl = (filename: string) => {
   if (filename.startsWith('/products/')) return filename;
-  const key = Object.keys(imageAssets).find(k => k.endsWith(`/${filename}`));
-  return key ? imageAssets[key] : '';
+  return `/products/${filename}`;
 };
 
 const getVideoUrl = (filename: string) => {
@@ -18,122 +17,57 @@ const getVideoUrl = (filename: string) => {
   return key ? videoAssets[key] : '';
 };
 
-// The provided gallery data
+// Clean captions for images
+const formatCaption = (file: string, originalCaption: string) => {
+  if (originalCaption !== "Premium Product") return originalCaption;
+  // Extract number from /products/img-29 (X).jpg
+  const match = file.match(/\((\d+)\)/);
+  if (match) {
+    return `Frozen Seafood Export Stock #${match[1]}`;
+  }
+  return "Seafood Export Product";
+};
+
+// Gallery data
 const galleryData = {
-  "title": "Seafood Export Gallery",
-  "subtitle": "Products • Processing • Packing • Certifications • Videos",
-  "categories": ["All", "Products", "Processing", "Videos"],
-  "images": [
-    { "file": "Seer Fish.jpg", "caption": "Seer Fish", "category": "Products" },
-    { "file": "Black Tiger.jpg", "caption": "Black Tiger Prawns", "category": "Products" },
-    { "file": "Tiger Jumbo.jpg", "caption": "Tiger Jumbo Prawns", "category": "Products" },
-    { "file": "Tiger Slab.jpg", "caption": "Tiger Slab Prawns", "category": "Products" },
-    { "file": "Glazed prawns.jpg", "caption": "Glazed Prawns", "category": "Products" },
-    { "file": "Coocked Jumbo.jpg", "caption": "Cooked Jumbo Prawns", "category": "Products" },
-    { "file": "Prawn Nuggets.jpg", "caption": "Prawn Nuggets", "category": "Products" },
-    { "file": "Packing.jpg", "caption": "Export Packing", "category": "Processing" },
-    { "file": "SLV-stock packing.jpg", "caption": "Stock Packing", "category": "Processing" },
-    { "file": "Stock 1.jpg", "caption": "Stock Preparation", "category": "Processing" },
-    { "file": "Stock-Loading.jpg", "caption": "Loading & Dispatch", "category": "Processing" },
-    { "file": "004.jpg", "caption": "Graded Prawns", "category": "Processing" },
-    { "file": "005.jpg", "caption": "Graded Prawns", "category": "Processing" },
-    { "file": "006.jpg", "caption": "Graded Prawns", "category": "Products" },
-    { "file": "007.jpg", "caption": "Graded Prawns", "category": "Products" },
-    { "file": "008.jpg", "caption": "Graded Prawns", "category": "Products" },
-    { "file": "009.jpg", "caption": "Graded Prawns", "category": "Processing" },
-    { "file": "012.jpg", "caption": "Graded Prawns", "category": "Processing" },
-    { "file": "013.jpg", "caption": "Graded Prawns", "category": "Products" },
-    { "file": "014.jpg", "caption": "Graded Prawns", "category": "Processing" },
-    { "file": "015.jpg", "caption": "Graded Prawns", "category": "Products" },
-    { "file": "016.jpg", "caption": "Graded Prawns", "category": "Products" },
-    { "file": "019.jpg", "caption": "Crispy Prawns", "category": "Processing" },
-    { "file": "021.jpg", "caption": "Breaded Prawns", "category": "Products" },
-    { "file": "022.jpg", "caption": "Prawn Rolls", "category": "Products" },
-    { "file": "/products/Meat Balls.jpg", "caption": "Meat Balls", "category": "Products" },
-    { "file": "/products/Prawn Rolls.jpg", "caption": "Prawn Rolls", "category": "Products" },
-    { "file": "/products/Samosa meat.jpg", "caption": "Samosa Meat", "category": "Products" },
-    { "file": "/products/img-29 (1).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (2).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (3).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (4).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (5).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (6).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (7).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (8).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (9).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (10).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (11).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (12).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (13).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (14).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (15).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (16).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (17).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (18).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (19).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (20).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (21).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (22).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (23).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (24).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (25).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (26).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (27).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (28).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (29).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (30).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (31).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (32).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (33).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (34).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (35).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (36).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (37).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (38).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (39).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (40).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (41).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (42).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (43).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (44).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (45).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (46).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (47).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (48).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (49).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (50).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (51).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (52).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (53).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (54).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (55).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (56).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (57).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (58).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (59).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (60).jpg", "caption": "Premium Product", "category": "Products" },
-    { "file": "/products/img-29 (61).jpg", "caption": "Premium Product", "category": "Products" }
+  title: "Seafood Export Gallery",
+  subtitle: "Products • Processing • Packing • Certifications • Facility Videos",
+  categories: ["All", "Products", "Processing Videos"],
+  images: [
+    { file: "/products/Seer Fish.jpeg", caption: "Fresh Seer Fish", category: "Products" },
+    { file: "/products/Shrimp.jpeg", caption: "21/25 grade prawns", category: "Products" },
+    { file: "/products/Breaded Shrimp.jpeg", caption: "Breaded Shrimp Snack", category: "Products" },
+    { file: "/products/Spring Rolls.jpeg", caption: "Spring Rolls", category: "Products" },
+    { file: "/products/Crab.jpeg", caption: "Crab", category: "Products" },
+    { file: "/products/Lobster.jpeg", caption: "Lobster", category: "Products" },
+    { file: "/products/Octopus.jpeg", caption: "Baby Octopus", category: "Products" },
+    { file: "/products/Meat Balls.jpg", caption: "Sea Meat Balls", category: "Products" },
+    { file: "/products/Prawn Rolls.jpg", caption: "Prawn Rolls ", category: "Products" },
+    { file: "/products/Samosa meat.jpg", caption: "Sea Samosa Meat", category: "Products" },
+    { file: "/products/Breaded Fingers.jpg", caption: "Breaded Fingers", category: "Products" },
+    { file: "/products/Breaded Prawns Type-01.jpeg", caption: "Breaded Prawns Type-01", category: "Products" },
+    { file: "/products/Shrimp Fingers.jpg", caption: "Shrimp Fingers", category: "Products" },
+    { file: "/products/Grade vise packing.jpeg", caption: "Grade vise packing", category: "Products" },
+    { file: "/products/VPD 16-20 grade.jpeg", caption: "VPD 16-20 grade", category: "Products" },
+    { file: "/products/Black Tiger Prawns.jpeg", caption: "Black Tiger Prawns", category: "Products" },
+    { file: "/products/Slab Prawns.jpeg", caption: "Slab Prawns", category: "Products" },
+    { file: "/products/Jumbo Prawns.jpeg", caption: "Jumbo Prawns", category: "Products" },
   ],
-  "videos": [
-    { "file": "packing.mp4", "caption": "Packing Process", "category": "Videos" },
-    { "file": "WhatsApp Image 2026-01-08 at 1.37.32 PM (1).mp4", "caption": "Processing Video 1", "category": "Videos" },
-    { "file": "WhatsApp Image 2026-01-08 at 1.37.32 PM (2).mp4", "caption": "Processing Video 2", "category": "Videos" },
-    { "file": "WhatsApp Image 2026-01-08 at 1.37.32 PM (3).mp4", "caption": "Processing Video 3", "category": "Videos" },
-    { "file": "WhatsApp Image 2026-01-08 at 1.37.32 PM (4).mp4", "caption": "Processing Video 4", "category": "Videos" },
-    { "file": "WhatsApp Image 2026-01-08 at 1.37.32 PM (6).mp4", "caption": "Processing Video 5", "category": "Videos" }
+  videos: [
+    { file: "packing.mp4", caption: "Grading & Packing", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (1).mp4", caption: "General Cold Store", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (2).mp4", caption: "Prawn Packing", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (3).mp4", caption: "Loading to export", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (4).mp4", caption: "Hygine packing", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (6).mp4", caption: "General Cold Store", category: "Processing Videos" }
   ]
 };
 
+const PAGE_SIZE = 24;
+
 export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState('All');
-
-  // Force repaint on mount to fix white screen issue in webviews
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   // Modal State
   const [modalData, setModalData] = useState<{ type: 'image' | 'video', src: string, caption: string } | null>(null);
@@ -141,7 +75,7 @@ export default function GalleryPage() {
   // Filter items
   const filteredItems = useMemo(() => {
     if (activeFilter === 'All') {
-      const allImages = galleryData.images.map(img => ({ ...img, type: 'image' }));
+      const allImages = galleryData.images.map(img => ({ ...img, caption: formatCaption(img.file, img.caption), type: 'image' }));
       const allVideos = galleryData.videos.map(vid => ({ ...vid, type: 'video' }));
 
       const mixed = [];
@@ -159,9 +93,18 @@ export default function GalleryPage() {
     } else {
       return galleryData.images
         .filter(img => img.category === activeFilter)
-        .map(img => ({ ...img, type: 'image' }));
+        .map(img => ({ ...img, caption: formatCaption(img.file, img.caption), type: 'image' }));
     }
   }, [activeFilter]);
+
+  // Reset pagination when filter changes
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [activeFilter]);
+
+  const visibleItems = useMemo(() => {
+    return filteredItems.slice(0, visibleCount);
+  }, [filteredItems, visibleCount]);
 
   const openModal = (type: 'image' | 'video', file: string, caption: string) => {
     const src = type === 'image' ? getImageUrl(file) : getVideoUrl(file);
@@ -171,13 +114,13 @@ export default function GalleryPage() {
   const closeModal = () => setModalData(null);
 
   return (
-    <div className="bg-[#F8FAFC] dark:bg-[#023047] min-h-screen pb-20">
+    <div className="bg-[#F8FAFC] dark:bg-[#023047] min-h-screen pb-20 transition-colors duration-300">
       <Helmet>
-        <title>Gallery | SLV Marine Exports – Products, Processing &amp; Facilities</title>
+        <title>Gallery | SLV Marine Exports – Products, Processing & Facilities</title>
         <meta name="description" content="SLV Marine Exports gallery – frozen fish, prawn processing, export packing, cold storage, infrastructure and processing facility videos." />
       </Helmet>
 
-      {/* Header section similar to user's HTML */}
+      {/* Header section */}
       <section className="bg-[#023047] pt-[calc(6rem+env(safe-area-inset-top,0px))] pb-16 text-center text-white relative border-b-4 border-[#00B4D8]">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#023047]/80" />
         <div className="relative z-10 px-4">
@@ -189,12 +132,12 @@ export default function GalleryPage() {
 
       <div className="max-w-7xl mx-auto px-4 lg:px-8 mt-12">
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex items-center gap-3 overflow-x-auto pb-2 px-1 max-w-full sm:flex-wrap sm:justify-center whitespace-nowrap scrollbar-none touch-pan-x mb-10">
           {galleryData.categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm ${activeFilter === cat
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm shrink-0 ${activeFilter === cat
                 ? 'bg-[#0077B6] text-white shadow-md'
                 : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 dark:bg-[#061420] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5'
                 }`}
@@ -207,15 +150,14 @@ export default function GalleryPage() {
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, idx) => (
+            {visibleItems.map((item, idx) => (
               <motion.div
                 key={item.file + idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "50px" }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="bg-white dark:bg-[#061420] rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,119,182,0.12)] transition-shadow cursor-pointer border border-slate-100 dark:border-white/5 flex flex-col group"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white dark:bg-[#061420] rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,119,182,0.12)] transition-all cursor-pointer border border-slate-100 dark:border-white/5 flex flex-col group hover:-translate-y-1"
                 onClick={() => openModal(item.type as 'image' | 'video', item.file, item.caption)}
               >
                 <div className="relative overflow-hidden bg-slate-100 dark:bg-slate-800 aspect-[4/3]">
@@ -225,13 +167,13 @@ export default function GalleryPage() {
                       alt={item.caption}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                   ) : (
                     <div className="w-full h-full relative group">
                       <video
                         src={getVideoUrl(item.file) + "#t=0.1"}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                         preload="metadata"
                         muted
                         playsInline
@@ -248,26 +190,38 @@ export default function GalleryPage() {
                   )}
                 </div>
                 <div className="p-4 text-center">
-                  <p className="text-[0.95rem] font-bold text-slate-800 dark:text-slate-100">{item.caption}</p>
+                  <p className="text-[0.95rem] font-bold text-slate-800 dark:text-slate-100 line-clamp-1">{item.caption}</p>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
 
+        {/* Load More Button */}
+        {visibleCount < filteredItems.length && (
+          <div className="text-center mt-12">
+            <button
+              onClick={() => setVisibleCount(prev => prev + PAGE_SIZE)}
+              className="bg-white dark:bg-[#061420] text-[#0077B6] dark:text-[#48CAE4] border border-[#0077B6]/30 dark:border-[#48CAE4]/30 font-bold px-8 py-3.5 rounded-full hover:bg-[#0077B6] hover:text-white dark:hover:bg-[#48CAE4] dark:hover:text-[#023047] transition-all shadow-sm hover:shadow-md"
+            >
+              Load More Gallery Items ({filteredItems.length - visibleCount} remaining)
+            </button>
+          </div>
+        )}
+
         {filteredItems.length === 0 && (
-          <div className="text-center py-20 text-slate-500">
+          <div className="text-center py-20 text-slate-500 dark:text-slate-400">
             No items found for this category.
           </div>
         )}
 
         {/* Bottom CTA */}
         <div className="mt-20 text-center pb-8 border-t border-slate-200 dark:border-white/10 pt-12">
-          <p className="text-lg text-slate-600 dark:text-slate-300 font-medium mb-6">Interested in our products or services?</p>
+          <p className="text-lg text-slate-600 dark:text-slate-300 font-medium mb-6">Contact our team for more details and Products with all kinds of Grades</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <a href="/contact" className="bg-[#0077B6] hover:bg-[#023047] text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-[0_8px_20px_rgba(0,119,182,0.25)] hover:-translate-y-1">
+            <Link to="/contact" className="bg-[#0077B6] hover:bg-[#023047] text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-[0_8px_20px_rgba(0,119,182,0.25)] hover:-translate-y-1">
               Send an Inquiry
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -323,6 +277,9 @@ export default function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile bottom nav spacer */}
+      <div className="h-16 md:hidden" aria-hidden="true" />
     </div>
   );
 }

@@ -2,11 +2,13 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { FiArrowDown, FiArrowUpRight, FiCheck, FiGlobe } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import heroMarineExport from '../../assets/hero-building.jpg';
+import { useLanguage } from '../../context/LanguageContext';
 
 const proofPoints = ['Export-ready formats', 'Cold-chain focused', 'Quality-led sourcing'];
 
 const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -27,11 +29,11 @@ const HeroSection = () => {
       <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#0F172A]/90 via-[#0F172A]/60 to-transparent sm:to-[#0F172A]/40" />
       <div className="absolute inset-0 -z-20 bg-gradient-to-t from-[#0F172A]/95 via-transparent to-[#0F172A]/30" />
 
-      {/* Ambient glow - using Slate and Gold */}
+      {/* Ambient glow */}
       <div className="absolute -left-40 top-1/4 -z-10 w-[500px] h-[400px] rounded-full bg-[#4A5568]/20 blur-[120px] pointer-events-none" />
       <div className="absolute right-0 bottom-1/4 -z-10 w-[400px] h-[300px] rounded-full bg-[#48CAE4]/15 blur-[100px] pointer-events-none" />
 
-      {/* Content — paddingTop clears the fixed header (~72px) */}
+      {/* Content */}
       <div className="relative z-10 flex flex-col justify-end lg:justify-center w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14
                       pt-24 pb-28 sm:pt-28 sm:pb-36 lg:py-24
                       min-h-screen">
@@ -49,7 +51,7 @@ const HeroSection = () => {
               className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3.5 py-2 text-[0.65rem] font-bold tracking-[0.16em] text-[#48CAE4] backdrop-blur-md"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#48CAE4] shadow-[0_0_10px_#48CAE4]" />
-              INDIA & NEPAL EXPORT FOCUS
+              {t('heroBadge')}
             </motion.div>
 
             {/* Headline */}
@@ -60,11 +62,10 @@ const HeroSection = () => {
               transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="text-[2.2rem] leading-[1.08] sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white"
             >
-              Delivering Premium
+              {t('heroTitle')}
               <span className="block mt-1 bg-gradient-to-r from-[#A2E9F8] via-[#48CAE4] to-[#1e9eb7] bg-clip-text text-transparent">
-                Indian Seafood
+                {t('heroHighlight')}
               </span>
-              <span className="block mt-1 text-[#e2e8f0]">to Nepal & Beyond.</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -74,7 +75,7 @@ const HeroSection = () => {
               transition={{ duration: 0.65, delay: 0.18 }}
               className="mt-5 text-sm sm:text-base leading-7 text-slate-300 max-w-lg"
             >
-              Trusted exporter of fresh and frozen seafood with uncompromising quality — delivering excellence from India's shores directly to Nepal.
+              {t('heroSubtitle')}
             </motion.p>
 
             {/* CTA buttons */}
@@ -85,16 +86,16 @@ const HeroSection = () => {
               className="mt-7 flex flex-col xs:flex-row flex-wrap gap-3"
             >
               <Link
-                to="/gallery"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] hover:bg-[#b0902c] px-6 py-3.5 text-sm font-extrabold text-[#0F172A] shadow-[0_8px_24px_rgba(212,175,55,0.3)] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(212,175,55,0.45)] active:scale-95"
+                to="/products"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#48CAE4] hover:bg-[#3ab8d2] px-6 py-3.5 text-sm font-extrabold text-[#023047] shadow-[0_8px_24px_rgba(72,202,228,0.3)] transition-all hover:-translate-y-0.5 active:scale-95"
               >
-                View Our Products <FiArrowUpRight className="w-4 h-4" />
+                {t('exploreCatalog')} <FiArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[#D4AF37] hover:bg-white/15 active:scale-95"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[#48CAE4] hover:bg-white/15 active:scale-95"
               >
-                Make an Enquiry <FiArrowUpRight className="w-4 h-4" />
+                {t('startConversation')} <FiArrowUpRight className="w-4 h-4" />
               </Link>
             </motion.div>
 
@@ -171,9 +172,9 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator — hidden on very small screens */}
+      {/* Scroll indicator */}
       <a
-        href="#our-impact"
+        href="#main-content"
         className="absolute bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1.5 text-[0.6rem] font-bold tracking-[0.18em] text-white/50 hover:text-white/80 transition-colors"
         aria-label="Scroll to content"
       >

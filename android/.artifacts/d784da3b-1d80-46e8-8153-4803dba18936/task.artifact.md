@@ -1,3 +1,4 @@
-- `[x]` Create `src/components/layout/ExitModal.tsx` for attractive exit confirmation
-- `[x]` Update `src/App.tsx` to use the new `ExitModal`
-- `[x]` Verify the changes and provide walkthrough
+- `[ ]` Increase network timeout in `gradle-wrapper.properties`
+- `[ ]` Hide `APKDownloadSection` in native app (`src/components/home/APKDownloadSection.tsx`)
+- `[ ]` Redirect `DownloadAppPage` in native app (`src/pages/DownloadAppPage.tsx`)
+- `[ ]` Verify changes and provide walkthrough

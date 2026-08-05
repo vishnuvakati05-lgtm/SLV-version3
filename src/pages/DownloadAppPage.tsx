@@ -1,27 +1,31 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { FaAndroid, FaGooglePlay, FaBookOpen, FaImages, FaPhoneAlt, FaBell, FaTruck, FaNewspaper, FaDownload } from 'react-icons/fa';
+import { FaAndroid, FaGooglePlay, FaBookOpen, FaImages, FaPhoneAlt, FaBell, FaTruck, FaNewspaper, FaDownload, FaQrcode, FaCheckCircle } from 'react-icons/fa';
+import { checkIsNativeApp } from '../utils/platform';
+import { Link } from 'react-router-dom';
 
 const features = [
   { icon: <FaBookOpen />, title: 'Product Catalog', desc: 'Browse our complete range of premium seafood with detailed specifications.' },
   { icon: <FaImages />, title: 'Photo Gallery', desc: 'View high-quality images of our products, facilities, and processing.' },
   { icon: <FaTruck />, title: 'Order Tracking', desc: 'Monitor your shipment status in real-time.' },
-  { icon: <FaBell />, title: 'Push Notifications', desc: 'Get instant updates on new arrivals and exclusive offers.' },
+  { icon: <FaBell />, title: 'Notifications', desc: 'Get instant updates on new arrivals and catalog updates.' },
   { icon: <FaNewspaper />, title: 'Company Updates', desc: 'Stay informed with our latest news and certifications.' },
   { icon: <FaPhoneAlt />, title: 'Quick Contact', desc: 'Reach our sales team directly with a single tap.' },
 ];
 
 const DownloadAppPage: React.FC = () => {
+  const isNative = checkIsNativeApp();
+
   return (
-    <div className="bg-[#F1FAFC] dark:bg-[#023047] min-h-screen pt-20 pb-0 font-sans overflow-hidden">
+    <div className="bg-[#F1FAFC] dark:bg-[#023047] min-h-screen pt-20 pb-0 font-sans overflow-hidden transition-colors duration-300">
       <Helmet>
         <title>Download App | SLV Marine Exports</title>
-        <meta name="description" content="Download the official SLV Marine Exports Android app to browse products, track orders, and stay connected on the go." />
+        <meta name="description" content="Download the official SLV Marine Exports Android app to browse products, request quotes, and stay connected on the go." />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#023047] via-[#0077B6] to-[#00B4D8] text-white py-16 px-4 md:px-8 lg:px-16 min-h-[90vh] flex items-center">
+      <section className="bg-gradient-to-br from-[#023047] via-[#0077B6] to-[#00B4D8] text-white py-16 px-4 md:px-8 lg:px-16 min-h-[85vh] flex items-center">
         <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center gap-12">
           
           {/* Content (Left) */}
@@ -31,43 +35,62 @@ const DownloadAppPage: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-block px-4 py-1 bg-white/20 rounded-full text-sm font-semibold tracking-wider mb-6 border border-white/30 backdrop-blur-sm">
-              NOW AVAILABLE ON ANDROID
+            <div className="inline-block px-4 py-1 bg-white/20 rounded-full text-xs sm:text-sm font-semibold tracking-wider mb-6 border border-white/30 backdrop-blur-sm">
+              {isNative ? 'OFFICIAL NATIVE APPLICATION' : 'NOW AVAILABLE FOR ANDROID'}
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              SLV Marine Exports <br className="hidden md:block"/>In Your Pocket
+              {isNative ? 'Welcome to SLV Marine Mobile' : 'SLV Marine Exports In Your Pocket'}
             </h1>
-            <p className="text-lg md:text-xl opacity-90 mb-10 max-w-xl">
-              Experience seamless B2B seafood sourcing. Browse catalogs, request quotes, and track your shipments on the go with our official mobile application.
+            <p className="text-lg md:text-xl opacity-90 mb-10 max-w-xl leading-relaxed">
+              {isNative 
+                ? 'You are currently using the official SLV Marine Exports Android application. Enjoy seamless product browsing, quote requests, and order updates.'
+                : 'Experience seamless seafood sourcing. Browse catalogs, request quotes, and track your shipments across India & Nepal on the go with our official mobile application.'
+              }
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <a 
-                href="/SLV_Marine.apk" 
-                download="SLV_Marine.apk"
-                className="bg-[#48CAE4] hover:bg-yellow-400 text-[#1A1A1A] font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-xl"
-              >
-                <FaAndroid className="text-2xl text-[#00B4D8]" />
-                <div className="text-left leading-tight">
-                  <div className="text-xs font-semibold uppercase">Download APK</div>
-                  <div className="text-lg">Direct Download</div>
+            {!isNative ? (
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <a 
+                  href="/SLV_Marine.apk" 
+                  download="SLV_Marine.apk"
+                  className="bg-[#48CAE4] hover:bg-[#3ab8d2] text-[#023047] font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-xl"
+                >
+                  <FaAndroid className="text-2xl text-[#023047]" />
+                  <div className="text-left leading-tight">
+                    <div className="text-xs font-semibold uppercase">Download Direct APK</div>
+                    <div className="text-lg">Free Download (15 MB)</div>
+                  </div>
+                </a>
+                <div 
+                  className="bg-white/10 border border-white/20 text-white/80 font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 backdrop-blur-sm cursor-default"
+                >
+                  <FaGooglePlay className="text-2xl text-white/60" />
+                  <div className="text-left leading-tight">
+                    <div className="text-xs font-medium">GOOGLE PLAY</div>
+                    <div className="text-sm text-white/70">Coming Soon</div>
+                  </div>
                 </div>
-              </a>
-              <a 
-                href="#" 
-                className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-3 backdrop-blur-sm transition-colors"
-              >
-                <FaGooglePlay className="text-2xl" />
-                <div className="text-left leading-tight">
-                  <div className="text-xs font-medium">GET IT ON</div>
-                  <div className="text-lg">Google Play</div>
-                </div>
-              </a>
-            </div>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-4 mb-12">
+                <Link 
+                  to="/products"
+                  className="bg-[#48CAE4] hover:bg-[#3ab8d2] text-[#023047] font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105 shadow-xl"
+                >
+                  <FaBookOpen /> Browse Catalog
+                </Link>
+                <Link 
+                  to="/contact"
+                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-2 backdrop-blur-sm transition-colors"
+                >
+                  <FaPhoneAlt /> Contact Support
+                </Link>
+              </div>
+            )}
 
             <div className="flex items-center gap-6 text-sm opacity-80 border-t border-white/20 pt-6 max-w-md">
-              <div><span className="font-bold block">Version</span> 1.0.0</div>
-              <div><span className="font-bold block">Size</span> 15 MB</div>
+              <div><span className="font-bold block">Version</span> 3.0.0</div>
+              <div><span className="font-bold block">Status</span> {isNative ? 'Installed & Active' : 'Ready to Install'}</div>
               <div><span className="font-bold block">Requires</span> Android 6.0+</div>
             </div>
           </motion.div>
@@ -119,19 +142,21 @@ const DownloadAppPage: React.FC = () => {
               </div>
             </div>
             
-            {/* QR Code floating card */}
+            {/* Status Card */}
             <motion.div 
-              className="absolute -left-10 bottom-20 bg-white p-4 rounded-xl shadow-2xl border border-gray-100 hidden md:block"
+              className="absolute -left-10 bottom-20 bg-white dark:bg-[#1E293B] p-4 rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 hidden md:block"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8, type: 'spring' }}
             >
-              <div className="text-center text-xs font-bold text-gray-500 mb-2">SCAN TO INSTALL</div>
-              <div className="w-24 h-24 grid grid-cols-5 grid-rows-5 gap-1 p-1 bg-gray-50 rounded">
-                {/* Simulated QR Code */}
-                {[...Array(25)].map((_, i) => (
-                  <div key={i} className={`rounded-sm ${Math.random() > 0.5 ? 'bg-[#1A1A1A]' : 'bg-transparent'}`}></div>
-                ))}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-[#0077B6]/10 text-[#0077B6] dark:text-[#48CAE4] rounded-xl flex items-center justify-center text-xl">
+                  {isNative ? <FaCheckCircle className="text-emerald-500" /> : <FaQrcode />}
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-800 dark:text-white">{isNative ? 'App Installed' : 'Direct Installation'}</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">{isNative ? 'Running v3.0.0' : 'Android 6.0+ Supported'}</p>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -141,62 +166,67 @@ const DownloadAppPage: React.FC = () => {
       {/* Features Section */}
       <section className="py-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-[#023047] mb-4">App Features</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Everything you need to manage your seafood sourcing efficiently, right at your fingertips.</p>
+          <h2 className="text-3xl font-bold text-[#023047] dark:text-white mb-4">App Features</h2>
+          <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">Everything you need to manage your seafood sourcing efficiently, right at your fingertips.</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div 
               key={index}
-              className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+              className="bg-white dark:bg-[#1E293B] p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-white/10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <div className="w-14 h-14 bg-[#e6f0f7] text-[#0077B6] rounded-xl flex items-center justify-center text-2xl mb-6">
+              <div className="w-14 h-14 bg-[#e6f0f7] dark:bg-white/10 text-[#0077B6] dark:text-[#48CAE4] rounded-xl flex items-center justify-center text-2xl mb-6">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold text-[#1A1A1A] mb-3">{feature.title}</h3>
-              <p className="text-gray-600">{feature.desc}</p>
+              <h3 className="text-xl font-bold text-[#1A1A1A] dark:text-white mb-3">{feature.title}</h3>
+              <p className="text-gray-600 dark:text-slate-400">{feature.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Installation Guide */}
-      <section className="py-20 px-4 md:px-8 lg:px-16 bg-white border-t border-gray-100">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-[#023047] mb-4">How to Install (APK)</h2>
-            <p className="text-gray-600">Follow these simple steps to install the app directly on your Android device.</p>
+      {/* Installation Guide (Only shown on website, hidden in native app) */}
+      {!isNative && (
+        <section className="py-20 px-4 md:px-8 lg:px-16 bg-white dark:bg-[#0d1f3c] border-t border-gray-100 dark:border-white/10">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-[#023047] dark:text-white mb-4">How to Install (APK)</h2>
+              <p className="text-gray-600 dark:text-slate-400">Follow these simple steps to install the app directly on your Android device.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              {/* Connecting line for desktop */}
+              <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-gray-200 dark:bg-slate-700 z-0"></div>
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-24 h-24 bg-blue-50 dark:bg-[#0077B6]/20 text-[#0077B6] dark:text-[#48CAE4] rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white dark:border-[#0d1f3c] shadow-md mb-6"><FaDownload/></div>
+                <h4 className="text-xl font-bold text-slate-800 dark:text-white mb-2">1. Download APK</h4>
+                <p className="text-gray-500 dark:text-slate-400 text-sm">Click the download button above to save the .apk file to your device.</p>
+              </div>
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-24 h-24 bg-yellow-50 dark:bg-yellow-500/20 text-[#48CAE4] rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white dark:border-[#0d1f3c] shadow-md mb-6">⚙️</div>
+                <h4 className="text-xl font-bold text-slate-800 dark:text-white mb-2">2. Allow Unknown Sources</h4>
+                <p className="text-gray-500 dark:text-slate-400 text-sm">Go to Settings &gt; Security and enable "Install from Unknown Sources".</p>
+              </div>
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-24 h-24 bg-green-50 dark:bg-green-500/20 text-[#00B4D8] rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white dark:border-[#0d1f3c] shadow-md mb-6">✅</div>
+                <h4 className="text-xl font-bold text-slate-800 dark:text-white mb-2">3. Install & Open</h4>
+                <p className="text-gray-500 dark:text-slate-400 text-sm">Open the downloaded file, tap Install, and launch the app.</p>
+              </div>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Connecting line for desktop */}
-            <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-gray-200 z-0"></div>
-            
-            <div className="relative z-10 flex flex-col items-center text-center">
-              <div className="w-24 h-24 bg-blue-50 text-[#0077B6] rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md mb-6"><FaDownload/></div>
-              <h4 className="text-xl font-bold mb-2">1. Download APK</h4>
-              <p className="text-gray-500 text-sm">Click the download button above to save the .apk file to your device.</p>
-            </div>
-            
-            <div className="relative z-10 flex flex-col items-center text-center">
-              <div className="w-24 h-24 bg-yellow-50 text-[#48CAE4] rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md mb-6">⚙️</div>
-              <h4 className="text-xl font-bold mb-2">2. Allow Unknown Sources</h4>
-              <p className="text-gray-500 text-sm">Go to Settings &gt; Security and enable "Install from Unknown Sources".</p>
-            </div>
-            
-            <div className="relative z-10 flex flex-col items-center text-center">
-              <div className="w-24 h-24 bg-green-50 text-[#00B4D8] rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md mb-6">✅</div>
-              <h4 className="text-xl font-bold mb-2">3. Install & Open</h4>
-              <p className="text-gray-500 text-sm">Open the downloaded file, tap Install, and launch the app.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Mobile bottom nav spacer */}
+      <div className="h-16 md:hidden" aria-hidden="true" />
     </div>
   );
 };

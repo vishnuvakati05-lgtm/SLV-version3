@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Layout } from './components/layout/Layout';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
@@ -10,7 +11,7 @@ import { ExitModal } from './components/layout/ExitModal';
 // Lazy loaded pages
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
-
+const ProductsPage = lazy(() => import('./pages/ProductsPage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const QualityPage = lazy(() => import('./pages/QualityPage'));
@@ -20,6 +21,8 @@ const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const DownloadAppPage = lazy(() => import('./pages/DownloadAppPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -66,26 +69,30 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <Suspense fallback={<LoadingFallback />}>
-          <NativeRouterSync>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<HomePage />} />
-                <Route path="about" element={<AboutPage />} />
-
-                <Route path="gallery" element={<GalleryPage />} />
-                <Route path="services" element={<ServicesPage />} />
-                <Route path="quality" element={<QualityPage />} />
-                <Route path="certifications" element={<CertificationsPage />} />
-                <Route path="export-markets" element={<ExportMarketsPage />} />
-                <Route path="testimonials" element={<TestimonialsPage />} />
-                <Route path="faq" element={<FAQPage />} />
-                <Route path="contact" element={<ContactPage />} />
-                <Route path="download-app" element={<DownloadAppPage />} />
-              </Route>
-            </Routes>
-          </NativeRouterSync>
-        </Suspense>
+        <LanguageProvider>
+          <Suspense fallback={<LoadingFallback />}>
+            <NativeRouterSync>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="about" element={<AboutPage />} />
+                  <Route path="products" element={<ProductsPage />} />
+                  <Route path="gallery" element={<GalleryPage />} />
+                  <Route path="services" element={<ServicesPage />} />
+                  <Route path="quality" element={<QualityPage />} />
+                  <Route path="certifications" element={<CertificationsPage />} />
+                  <Route path="export-markets" element={<ExportMarketsPage />} />
+                  <Route path="testimonials" element={<TestimonialsPage />} />
+                  <Route path="faq" element={<FAQPage />} />
+                  <Route path="contact" element={<ContactPage />} />
+                  <Route path="download-app" element={<DownloadAppPage />} />
+                  <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Route>
+              </Routes>
+            </NativeRouterSync>
+          </Suspense>
+        </LanguageProvider>
       </ThemeProvider>
     </HelmetProvider>
   );

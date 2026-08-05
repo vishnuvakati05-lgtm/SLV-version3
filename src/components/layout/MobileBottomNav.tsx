@@ -5,7 +5,7 @@ import { FiHome, FiPackage, FiImage, FiPhone, FiGrid } from 'react-icons/fi';
 
 const navItems = [
   { name: 'Home',     path: '/',         icon: FiHome,    end: true  },
-
+  { name: 'Products', path: '/products', icon: FiPackage, end: false },
   { name: 'Gallery',  path: '/gallery',  icon: FiImage,   end: false },
   { name: 'Services', path: '/services', icon: FiGrid,    end: false },
   { name: 'Contact',  path: '/contact',  icon: FiPhone,   end: false },
@@ -41,7 +41,7 @@ export const MobileBottomNav: React.FC = () => {
                   {isActive && (
                     <motion.span
                       layoutId="mobile-nav-pill"
-                      className="absolute inset-x-2 inset-y-1.5 rounded-xl bg-[#0077B6]/10 dark:bg-[#0077B6]/20"
+                      className="absolute inset-x-1.5 inset-y-1.5 rounded-xl bg-[#0077B6]/10 dark:bg-[#0077B6]/20"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}

@@ -1,33 +1,28 @@
-# Attractive Exit Confirmation with "Thank You" Message
+# Remove Download Option in App Only
 
-The goal is to replace the standard `window.confirm` exit dialog with a custom, "attractive" modal that includes a "Thank you for visiting" message and a "Visit again" call-to-action when a user attempts to exit the app from the Home page.
+The user wants to hide the "Download APK" section and the corresponding page when the application is running as a native Android app (via Capacitor), but keep it visible when viewed as a website.
 
 ## User Review Required
 
 > [!NOTE]
-> The custom modal will only appear on the Home page (`/`) when the user performs a back gesture or presses the back button, as this is the primary way users exit a Capacitor app on Android.
+> I will use the `Capacitor.isNativePlatform()` check to conditionally render these sections. This ensures that the download option is only hidden when the app is installed and running natively.
 
 ## Proposed Changes
 
-### [NEW] [ExitModal.tsx](file:///C:/Users/vishn/Desktop/SLV v3/src/components/layout/ExitModal.tsx)
-- Create a new component using `framer-motion` for a smooth entry/exit animation.
-- Design: Glassmorphism style with a dark overlay, matching the app's aesthetic.
-- Text: "Thank you for visiting SLV Marine!" and "We hope to see you again. Visit us anytime for premium seafood exports."
-- Buttons:
-    - **Exit App**: Triggers the actual app exit.
-    - **Stay**: Closes the modal and keeps the user in the app.
+### [Component] [APKDownloadSection.tsx](file:///C:/Users/vishn/Desktop/SLV v3/src/components/home/APKDownloadSection.tsx)
+- Import `Capacitor` from `@capacitor/core`.
+- Add a check at the beginning of the component: `if (Capacitor.isNativePlatform()) return null;`.
+- This will hide the entire "Take SLV Marine everywhere you go" section in the app.
 
-### [MODIFY] [App.tsx](file:///C:/Users/vishn/Desktop/SLV v3/src/App.tsx)
-- Update `NativeRouterSync` to manage a `showExitModal` state.
-- Replace `window.confirm` with `setShowExitModal(true)`.
-- Render `<ExitModal />` inside `NativeRouterSync` using `<AnimatePresence />`.
+### [Page] [DownloadAppPage.tsx](file:///C:/Users/vishn/Desktop/SLV v3/src/pages/DownloadAppPage.tsx)
+- Import `Capacitor` from `@capacitor/core` and `Navigate` from `react-router-dom`.
+- If `Capacitor.isNativePlatform()` is true, redirect the user to the home page or show a message. Redirecting to home (`/`) is cleaner.
 
 ## Verification Plan
 
+### Automated Tests
+- I will verify that the code compiles without errors.
+
 ### Manual Verification
-1. Deploy the app to an Android device/emulator.
-2. Navigate to any sub-page and press "Back". Verify it takes you to the Home page.
-3. From the Home page, press "Back".
-4. Verify the new "Thank you for visiting" modal appears with a smooth animation.
-5. Click "Stay" and verify the modal closes.
-6. Press "Back" again, then click "Exit App" and verify the app closes.
+- The user should run the app on an Android device/emulator and verify the "Download" section is gone.
+- The user should open the website in a browser and verify the "Download" section is still there.

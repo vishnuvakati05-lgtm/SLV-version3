@@ -188,7 +188,7 @@ const CertificationsPage: React.FC = () => {
                       {selectedCert.shortName}
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 font-medium">
-                      Certificate No. SLV-{Math.floor(Math.random() * 90000) + 10000}
+                      Certificate No. SLV-{selectedCert.shortName}-{selectedCert.id.toString().padStart(3, '0')}
                     </p>
                   </div>
                 </div>

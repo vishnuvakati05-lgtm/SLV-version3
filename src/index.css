@@ -99,7 +99,6 @@
   .dark .glass-card {
     background: rgba(30, 41, 59, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
@@ -253,13 +252,3 @@ html.dark ::selection {
   color: #0077B6 !important;
 }
 
-/* =====================
-   AOS OVERRIDES
-   ===================== */
-
-[data-aos] {
-  pointer-events: none;
-}
-[data-aos].aos-animate {
-  pointer-events: auto;
-}

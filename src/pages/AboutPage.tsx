@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGlobeAmericas, FaShip, FaCertificate, FaHandshake, FaEye, FaBullseye, FaTimes } from 'react-icons/fa';
 import PageHero from '../components/layout/PageHero';
+import heroBuilding from '../assets/hero-building.jpg';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -17,21 +18,6 @@ const staggerContainer = {
   }
 };
 
-const mapDots = [
-  { id: 'usa', x: '20%', y: '35%', country: 'USA', exports: 'Shrimps, Fish' },
-  { id: 'canada', x: '22%', y: '25%', country: 'Canada', exports: 'Lobsters, Crabs' },
-  { id: 'uk', x: '45%', y: '30%', country: 'UK', exports: 'Fish, Prawns' },
-  { id: 'germany', x: '48%', y: '32%', country: 'Germany', exports: 'Squid, Octopus' },
-  { id: 'france', x: '46%', y: '35%', country: 'France', exports: 'Tuna, Mackerel' },
-  { id: 'spain', x: '44%', y: '38%', country: 'Spain', exports: 'Cuttlefish, Ribbon Fish' },
-  { id: 'italy', x: '49%', y: '37%', country: 'Italy', exports: 'Pomfret, Shrimps' },
-  { id: 'middle-east', x: '60%', y: '45%', country: 'Middle East', exports: 'Fresh Fish, Dry Fish' },
-  { id: 'japan', x: '85%', y: '38%', country: 'Japan', exports: 'Premium Tuna, Shrimps' },
-  { id: 'singapore', x: '78%', y: '58%', country: 'Singapore', exports: 'Crabs, Value Added' },
-  { id: 'malaysia', x: '77%', y: '55%', country: 'Malaysia', exports: 'Fish, Prawns' },
-  { id: 'australia', x: '82%', y: '75%', country: 'Australia', exports: 'Frozen Fish, Seafood' },
-];
-
 const teamMembers = [
   { name: 'V. Sampath Kumar', role: 'Managing Partner', phone: '+91 89777 70455', img: '/managing-partner.jpg' },
   { name: 'Sohail', role: 'Accountant', phone: '+91 93901 97086', img: '/accountant-profile.jpg' },
@@ -44,15 +30,14 @@ export default function AboutPage() {
     <div className="bg-[#F1FAFC] dark:bg-[#023047] min-h-screen text-[#1A1A1A] dark:text-slate-200 transition-colors duration-300">
       <Helmet>
         <title>About Us | SLV Marine Exports</title>
-        <meta name="description" content="Learn about SLV Marine Exports, a leading seafood exporter from India." />
+        <meta name="description" content="Learn about SLV Marine Exports, a leading seafood exporter from Andhra Pradesh, India serving across India and Nepal." />
       </Helmet>
 
       <PageHero
         badge="Our Story"
         title="About SLV Marine"
         highlight="Exports"
-        subtitle="Delivering the ocean's finest to the world with uncompromised quality and sustainability."
-        image="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1600&h=400&fit=crop"
+        subtitle="Delivering the ocean's finest across India and Nepal with uncompromised quality and freshness."
       />
 
       {/* Company Story */}
@@ -67,10 +52,10 @@ export default function AboutPage() {
           >
             <h2 className="text-3xl font-bold text-[#0077B6] mb-6">Our Story</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
-              Founded with a passion for quality seafood and sustainable practices, SLV Marine Exports has grown into a globally recognized name. Our journey began with a simple mission: to connect local fishermen with global markets while ensuring the highest standards of freshness and hygiene.
+              Founded with a passion for quality seafood and sustainable practices, SLV Marine Exports has grown into a trusted name across India and Nepal. Our journey began with a simple mission: to connect local fishermen with markets while ensuring the highest standards of freshness and hygiene.
             </p>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Today, we operate state-of-the-art processing facilities and maintain a robust supply chain that guarantees our products reach overall India exactly as nature intended—fresh, delicious, and nutritious.
+              Today, we operate state-of-the-art processing facilities in Andhra Pradesh and maintain a robust supply chain that guarantees our products reach across India and Nepal exactly as nature intended — fresh, delicious, and nutritious.
             </p>
           </motion.div>
           <motion.div
@@ -81,7 +66,7 @@ export default function AboutPage() {
             className="flex-1"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img src="https://images.unsplash.com/photo-1533626904905-cc52fd99285e?w=800&h=600&fit=crop" alt="Processing facility" className="w-full h-auto object-cover" />
+              <img src={heroBuilding} alt="SLV Marine Exports processing facility in Andhra Pradesh" className="w-full h-auto object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0077B6]/40 to-transparent" />
             </div>
           </motion.div>
@@ -99,8 +84,8 @@ export default function AboutPage() {
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
             {[
-              { title: 'Our Mission', icon: <FaBullseye className="text-4xl text-[#48CAE4]" />, desc: 'To provide premium quality seafood products globally while promoting sustainable fishing practices and empowering local communities.' },
-              { title: 'Our Vision', icon: <FaEye className="text-4xl text-[#48CAE4]" />, desc: 'To be the most trusted and preferred partner for seafood exports worldwide, known for our integrity, quality, and innovation.' },
+              { title: 'Our Mission', icon: <FaBullseye className="text-4xl text-[#48CAE4]" />, desc: 'To provide premium quality seafood products across India and Nepal while promoting sustainable fishing practices and empowering local communities.' },
+              { title: 'Our Vision', icon: <FaEye className="text-4xl text-[#48CAE4]" />, desc: 'To be the most trusted and preferred partner for seafood supply in India and Nepal, known for our integrity, quality, and reliability.' },
               { title: 'Our Values', icon: <FaHandshake className="text-4xl text-[#48CAE4]" />, desc: 'Quality without compromise, sustainability, transparency, and building long-lasting relationships with our partners and clients.' }
             ].map((item, index) => (
               <motion.div key={index} variants={fadeIn} className="bg-[#F1FAFC] dark:bg-[#023047] p-8 rounded-2xl border border-gray-100 dark:border-white/6 shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden group">
@@ -126,28 +111,26 @@ export default function AboutPage() {
           >
             {[
               { icon: <FaGlobeAmericas />, count: '2', label: 'Primary Markets' },
-              { icon: <FaShip />, count: '500+', label: 'Shipments / Year' },
+              { icon: <FaShip />, count: '500+', label: 'Shipments Completed' },
               { icon: <FaCertificate />, count: '100%', label: 'Quality Assured' },
               { icon: <FaHandshake />, count: '200+', label: 'Happy Clients' }
             ].map((stat, i) => (
               <motion.div key={i} variants={fadeIn} className="flex flex-col items-center">
                 <div className="text-5xl text-[#48CAE4] mb-4">{stat.icon}</div>
                 <div className="text-4xl font-bold mb-2">{stat.count}</div>
-                <div className="text-gray-300 font-medium">{stat.label}</div>
+                <div className="text-blue-100 font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-
-
       {/* Certifications Section */}
       <section className="py-12 sm:py-20 bg-[#F1FAFC] dark:bg-[#023047]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#0077B6] mb-4">Our Certificates</h2>
-            <p className="text-gray-600 dark:text-slate-400">Global recognition for our commitment to quality</p>
+            <p className="text-gray-600 dark:text-slate-400">Recognition for our commitment to quality and compliance</p>
           </div>
 
           <motion.div
@@ -193,7 +176,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#0077B6] mb-4">Meet Our Team</h2>
-            <p className="text-gray-600">The dedicated professionals behind our success</p>
+            <p className="text-gray-600 dark:text-slate-400">The dedicated professionals behind our success</p>
           </div>
 
           <motion.div
@@ -209,13 +192,11 @@ export default function AboutPage() {
                   className="w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-white dark:border-[#0d1f3c] shadow-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-400 cursor-pointer"
                   onClick={() => setModalImage({ src: member.img, name: member.name, role: member.role })}
                 >
-                  {/* Fallback pattern/color is visible before image loads or if missing */}
                   <img 
                     src={member.img} 
                     alt={member.name} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                     onError={(e) => {
-                      // Fallback silhouette if image not found
                       e.currentTarget.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2394a3b8"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
                     }}
                   />
@@ -231,7 +212,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Lightbox Modal for Team */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
         {modalImage && (
           <motion.div 

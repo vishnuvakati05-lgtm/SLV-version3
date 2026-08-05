@@ -7,18 +7,18 @@ import { FloatingButtons } from './FloatingButtons';
 import { LoadingScreen } from './LoadingScreen';
 import { MobileBottomNav } from './MobileBottomNav';
 import { ScrollToTop } from './ScrollToTop';
+import { SmartQuoteBot } from '../chat/SmartQuoteBot';
 
 export const Layout: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
-    // Show loading screen for 2s on initial mount only
+    // Show brand loading screen briefly (800ms) on initial mount
     const timer = setTimeout(() => {
       setLoading(false);
-      // Trigger a resize event to ensure the browser repaints after the loader hides
       window.dispatchEvent(new Event('resize'));
-    }, 2000);
+    }, 800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -38,16 +38,24 @@ export const Layout: React.FC = () => {
         transition: 'background-color 0.3s ease, color 0.3s ease',
       }}
     >
-      {/* Loading screen sits on top and fades out — page content renders beneath it */}
+      {/* Accessibility Skip Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#0077B6] focus:text-white focus:rounded-lg focus:shadow-xl font-bold text-sm"
+      >
+        Skip to main content
+      </a>
+
+      {/* Loading screen sits on top and fades out */}
       <AnimatePresence>
         {loading && <LoadingScreen key="loading" />}
       </AnimatePresence>
 
-      {/* Header is always mounted so it's ready when loading ends */}
+      {/* Header */}
       <Header />
 
       {/* Main content with per-route page transition */}
-      <main className="flex-1 w-full">
+      <main id="main-content" className="flex-1 w-full">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={location.pathname}
@@ -63,6 +71,7 @@ export const Layout: React.FC = () => {
 
       <Footer />
       <FloatingButtons />
+      <SmartQuoteBot />
       <ScrollToTop />
       <MobileBottomNav />
     </div>
