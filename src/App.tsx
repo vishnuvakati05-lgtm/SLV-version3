@@ -42,7 +42,7 @@ const NativeRouterSync: React.FC<{ children: React.ReactNode }> = ({ children })
 
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
-      const listener = CapacitorApp.addListener('backButton', () => {
+      const backListener = CapacitorApp.addListener('backButton', () => {
         if (location.pathname !== '/') {
           // If not on home page, go to home page
           navigate('/', { replace: true });
@@ -51,8 +51,27 @@ const NativeRouterSync: React.FC<{ children: React.ReactNode }> = ({ children })
           setShowExitModal(true);
         }
       });
+
+      const urlListener = CapacitorApp.addListener('appUrlOpen', (data) => {
+        // Handle deep link URL e.g. "https://slvmarine.com/products"
+        try {
+          const urlObj = new URL(data.url);
+          const pathnameAndSearch = urlObj.pathname + urlObj.search + urlObj.hash;
+          if (pathnameAndSearch) {
+            navigate(pathnameAndSearch);
+          }
+        } catch (e) {
+          // Fallback if URL parsing fails
+          const parts = data.url.split('.com');
+          if (parts.length > 1) {
+            navigate(parts[1]);
+          }
+        }
+      });
+
       return () => {
-        listener.then(l => l.remove());
+        backListener.then(l => l.remove());
+        urlListener.then(l => l.remove());
       };
     }
   }, [navigate, location.pathname]);

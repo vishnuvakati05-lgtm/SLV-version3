@@ -58,18 +58,20 @@ const DownloadAppPage: React.FC = () => {
                   <FaAndroid className="text-2xl text-[#023047]" />
                   <div className="text-left leading-tight">
                     <div className="text-xs font-semibold uppercase">Download Direct APK</div>
-                    <div className="text-lg">Free Download (15 MB)</div>
+                    <div className="text-sm font-bold">Android Application</div>
                   </div>
                 </a>
-                <div 
-                  className="bg-white/10 border border-white/20 text-white/80 font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 backdrop-blur-sm cursor-default"
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-slv-qr-modal'))}
+                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 backdrop-blur-sm transition-colors cursor-pointer"
                 >
-                  <FaGooglePlay className="text-2xl text-white/60" />
+                  <FaQrcode className="text-2xl text-[#48CAE4]" />
                   <div className="text-left leading-tight">
-                    <div className="text-xs font-medium">GOOGLE PLAY</div>
-                    <div className="text-sm text-white/70">Coming Soon</div>
+                    <div className="text-xs font-semibold uppercase">Scan QR Code</div>
+                    <div className="text-xs text-white/80">Open on Phone</div>
                   </div>
-                </div>
+                </button>
               </div>
             ) : (
               <div className="flex flex-wrap gap-4 mb-12">

@@ -8,6 +8,7 @@ import { LoadingScreen } from './LoadingScreen';
 import { MobileBottomNav } from './MobileBottomNav';
 import { ScrollToTop } from './ScrollToTop';
 import { SmartQuoteBot } from '../chat/SmartQuoteBot';
+import { QRCodeModal } from './QRCodeModal';
 
 export const Layout: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -72,6 +73,7 @@ export const Layout: React.FC = () => {
       <Footer />
       <FloatingButtons />
       <SmartQuoteBot />
+      <QRCodeModal />
       <ScrollToTop />
       <MobileBottomNav />
     </div>

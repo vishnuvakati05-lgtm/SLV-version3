@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiSearch, FiArrowUpRight, FiPackage, FiMaximize2, FiX } from 'react-icons/fi';
+import { FiSearch, FiArrowUpRight, FiPackage, FiMaximize2, FiX, FiFileText } from 'react-icons/fi';
 import { FaWhatsapp, FaTimes } from 'react-icons/fa';
 import PageHero from '../components/layout/PageHero';
 import { products, Product } from '../data/products';
@@ -145,12 +145,19 @@ const ProductsPage: React.FC = () => {
                   </p>
                   
                   {/* Action buttons */}
-                  <div className="mt-auto pt-2 border-t border-slate-100 dark:border-white/5">
+                  <div className="mt-auto pt-2 border-t border-slate-100 dark:border-white/5 flex gap-2">
+                    <button
+                      onClick={() => setSelectedSpecProduct(product)}
+                      className="flex-1 flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 text-slate-700 dark:text-slate-200 text-xs font-bold py-2.5 px-2 rounded-xl transition-colors"
+                      title="View Export Specification Sheet"
+                    >
+                      <FiFileText className="w-3.5 h-3.5 text-[#0077B6] dark:text-[#48CAE4]" /> Spec
+                    </button>
                     <button
                       onClick={() => setSelectedWaProduct(product)}
-                      className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5c] text-white text-xs font-bold py-2.5 px-3 rounded-xl transition-colors shadow-sm"
+                      className="flex-1 flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5c] text-white text-xs font-bold py-2.5 px-2 rounded-xl transition-colors shadow-sm"
                     >
-                      <FaWhatsapp className="w-3.5 h-3.5" /> {t('orderOnWhatsApp')}
+                      <FaWhatsapp className="w-3.5 h-3.5" /> Order
                     </button>
                   </div>
                 </div>

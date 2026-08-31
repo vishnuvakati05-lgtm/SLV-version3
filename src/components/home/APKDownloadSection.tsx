@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiSmartphone, FiDownload, FiCheckCircle, FiWifi, FiPackage, FiShield, FiBell } from 'react-icons/fi';
-import { FaAndroid } from 'react-icons/fa';
+import { FaAndroid, FaQrcode } from 'react-icons/fa';
 import { checkIsNativeApp } from '../../utils/platform';
 
 const features = [
@@ -173,7 +173,7 @@ const APKDownloadSection = () => {
               ))}
             </div>
 
-            {/* Download button */}
+            {/* Download & QR buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="/SLV_Marine.apk"
@@ -181,8 +181,16 @@ const APKDownloadSection = () => {
                 className="flex items-center justify-center gap-3 bg-[#0077B6] hover:bg-[#005988] text-white font-bold py-4 px-6 rounded-2xl transition-all hover:shadow-[0_8px_28px_rgba(0,91,150,0.4)] hover:-translate-y-0.5 active:scale-95 text-sm"
               >
                 <FaAndroid className="w-5 h-5 text-[#3ddc84]" />
-                Download Direct APK (15 MB)
+                Download Direct APK
               </a>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent('open-slv-qr-modal'))}
+                className="flex items-center justify-center gap-2 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 text-slate-700 dark:text-slate-200 font-bold py-4 px-6 rounded-2xl transition-all text-sm cursor-pointer"
+              >
+                <FaQrcode className="w-4 h-4 text-[#0077B6] dark:text-[#48CAE4]" />
+                Scan QR Code
+              </button>
             </div>
 
             <p className="mt-3 text-[11px] text-slate-400 dark:text-slate-600 flex items-center gap-1.5">

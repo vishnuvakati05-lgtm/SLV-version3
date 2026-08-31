@@ -169,9 +169,14 @@ export const Footer: React.FC = () => {
           <p className="text-xs text-slate-600 text-center sm:text-left">
             © {new Date().getFullYear()} SLV Marine Exports Pvt. Ltd. All rights reserved.
           </p>
-          <div className="flex items-center gap-5 text-xs text-slate-600">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-5 text-xs text-slate-600">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-slv-qr-modal'))}
+              className="hover:text-[#48CAE4] transition-colors cursor-pointer"
+            >
+              App QR Code
+            </button>
             <Link to="/privacy-policy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-            <Link to="/privacy-policy" className="hover:text-slate-400 transition-colors">Terms of Service</Link>
             <Link to="/certifications" className="hover:text-slate-400 transition-colors">Certifications</Link>
           </div>
         </div>

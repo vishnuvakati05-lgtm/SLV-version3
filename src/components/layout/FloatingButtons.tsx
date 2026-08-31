@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaWhatsapp, FaPhoneAlt, FaTimes, FaUserTie, FaCalculator, FaRobot } from 'react-icons/fa';
+import { FaWhatsapp, FaPhoneAlt, FaTimes, FaUserTie, FaCalculator, FaRobot, FaQrcode } from 'react-icons/fa';
 
 const contacts = [
   { name: 'V. Sampath Kumar', role: 'Managing Partner', phone: '918977770455', display: '+91 89777 70455', icon: FaUserTie },
@@ -102,6 +102,23 @@ export const FloatingButtons: React.FC = () => {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* QR Code Button */}
+          <motion.button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-slv-qr-modal'))}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.9 }}
+            className="group relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#023047] text-white shadow-[0_8px_25px_-5px_rgba(2,48,71,0.5)] border border-white/20 transition-all"
+            aria-label="Scan or Share QR Code"
+          >
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-full" />
+            <FaQrcode className="h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300 group-hover:scale-110" />
+            
+            <div className="absolute right-full top-1/2 mr-4 -translate-y-1/2 whitespace-nowrap rounded-xl bg-slate-900 px-4 py-2 text-[13px] font-bold text-white opacity-0 shadow-xl transition-all duration-300 group-hover:opacity-100 hidden sm:block pointer-events-none">
+              Scan & Share QR Code
+              <div className="absolute right-[-4px] top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 bg-slate-900" />
+            </div>
+          </motion.button>
 
           {/* AI Assistant Button */}
           <motion.button

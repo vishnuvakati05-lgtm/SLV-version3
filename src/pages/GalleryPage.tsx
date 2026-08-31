@@ -42,13 +42,13 @@ const galleryData = {
     { file: "/products/Lobster.jpeg", caption: "Lobster", category: "Products" },
     { file: "/products/Octopus.jpeg", caption: "Baby Octopus", category: "Products" },
     { file: "/products/Meat Balls.jpg", caption: "Sea Meat Balls", category: "Products" },
-    { file: "/products/Prawn Rolls.jpg", caption: "Prawn Rolls ", category: "Products" },
+    { file: "/products/Prawn Rolls.jpg", caption: "Prawn Rolls", category: "Products" },
     { file: "/products/Samosa meat.jpg", caption: "Sea Samosa Meat", category: "Products" },
     { file: "/products/Breaded Fingers.jpg", caption: "Breaded Fingers", category: "Products" },
     { file: "/products/Breaded Prawns Type-01.jpeg", caption: "Breaded Prawns Type-01", category: "Products" },
     { file: "/products/Shrimp Fingers.jpg", caption: "Shrimp Fingers", category: "Products" },
-    { file: "/products/Grade vise packing.jpeg", caption: "Grade vise packing", category: "Products" },
-    { file: "/products/VPD 16-20 grade.jpeg", caption: "VPD 16-20 grade", category: "Products" },
+    { file: "/products/Grade vise packing.jpeg", caption: "Grade-wise Packing", category: "Products" },
+    { file: "/products/VPD 16-20 grade.jpeg", caption: "VPD 16-20 Grade", category: "Products" },
     { file: "/products/Black Tiger Prawns.jpeg", caption: "Black Tiger Prawns", category: "Products" },
     { file: "/products/Slab Prawns.jpeg", caption: "Slab Prawns", category: "Products" },
     { file: "/products/Jumbo Prawns.jpeg", caption: "Jumbo Prawns", category: "Products" },
@@ -56,10 +56,10 @@ const galleryData = {
   videos: [
     { file: "packing.mp4", caption: "Grading & Packing", category: "Processing Videos" },
     { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (1).mp4", caption: "General Cold Store", category: "Processing Videos" },
-    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (2).mp4", caption: "Prawn Packing", category: "Processing Videos" },
-    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (3).mp4", caption: "Loading to export", category: "Processing Videos" },
-    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (4).mp4", caption: "Hygine packing", category: "Processing Videos" },
-    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (6).mp4", caption: "General Cold Store", category: "Processing Videos" }
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (2).mp4", caption: "Prawn Packing Facility", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (3).mp4", caption: "Container Loading for Export", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (4).mp4", caption: "Hygiene Processing & Packing", category: "Processing Videos" },
+    { file: "WhatsApp Image 2026-01-08 at 1.37.32 PM (6).mp4", caption: "Cold Storage Logistics", category: "Processing Videos" }
   ]
 };
 
