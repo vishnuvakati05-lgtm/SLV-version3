@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { FaAndroid, FaGooglePlay, FaBookOpen, FaImages, FaPhoneAlt, FaBell, FaTruck, FaNewspaper, FaDownload, FaQrcode, FaCheckCircle } from 'react-icons/fa';
 import { checkIsNativeApp } from '../utils/platform';
+import { APK_DOWNLOAD_URL } from '../config/appConfig';
 import { Link } from 'react-router-dom';
 
 const features = [
@@ -51,8 +52,10 @@ const DownloadAppPage: React.FC = () => {
             {!isNative ? (
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <a 
-                  href="/SLV_Marine.apk" 
+                  href={APK_DOWNLOAD_URL} 
                   download="SLV_Marine.apk"
+                  target={APK_DOWNLOAD_URL.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
                   className="bg-[#48CAE4] hover:bg-[#3ab8d2] text-[#023047] font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-xl"
                 >
                   <FaAndroid className="text-2xl text-[#023047]" />

@@ -149,7 +149,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({
                   level="H"
                   includeMargin={true}
                   imageSettings={{
-                    src: '/favicon.ico',
+                    src: '/favicon.png',
                     x: undefined,
                     y: undefined,
                     height: 36,

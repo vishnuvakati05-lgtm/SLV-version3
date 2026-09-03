@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { FiSmartphone, FiDownload, FiCheckCircle, FiWifi, FiPackage, FiShield, FiBell } from 'react-icons/fi';
 import { FaAndroid, FaQrcode } from 'react-icons/fa';
 import { checkIsNativeApp } from '../../utils/platform';
+import { APK_DOWNLOAD_URL } from '../../config/appConfig';
 
 const features = [
   { icon: FiPackage, text: 'Full Product Catalog' },
@@ -176,8 +177,10 @@ const APKDownloadSection = () => {
             {/* Download & QR buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="/SLV_Marine.apk"
+                href={APK_DOWNLOAD_URL}
                 download="SLV_Marine.apk"
+                target={APK_DOWNLOAD_URL.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 bg-[#0077B6] hover:bg-[#005988] text-white font-bold py-4 px-6 rounded-2xl transition-all hover:shadow-[0_8px_28px_rgba(0,91,150,0.4)] hover:-translate-y-0.5 active:scale-95 text-sm"
               >
                 <FaAndroid className="w-5 h-5 text-[#3ddc84]" />
